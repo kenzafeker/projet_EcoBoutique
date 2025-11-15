@@ -1,5 +1,5 @@
 body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#eafdec; color:#204820;}
-    /*une Entete fixe lors de déroulement de la page*/
+  /*une Entete fixe lors de déroulement de la page*/
     .sticky-header {
       position:sticky;
       top:0;
@@ -12,53 +12,87 @@ body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#eafdec;
       display:flex;align-items:center;justify-content:center;
       box-shadow:0 6px 40px #51af7365;
     }
-    /*un fond blanc semi-transparent qui affiche le titre et le slogan dans une boîte arrondie au centre du header*/
-    .header-content {
-      background:rgba(255,255,255,0.76);
-      border-radius:24px;
-      padding:32px 22px;
-      text-align:center;
-      box-shadow:0 2px 16px #63dba037;
-      max-width:540px;
-      margin:auto;
+ /*un fond blanc semi-transparent qui affiche le titre et le slogan dans une boîte arrondie au centre du header*/
+.header-content {
+  background:rgba(255,255,255,0.76);
+  border-radius:24px;
+  padding:32px 22px;
+  text-align:center;
+  box-shadow:0 2px 16px #63dba037;
+  max-width:540px;
+  margin:auto;
+}
+.header-content h1 {font-size:2.3rem; margin:0 0 13px 0; color:#295b38; font-weight:900; letter-spacing:1.25px;}
+.header-content p {font-size:1.15rem; color:#32784b; font-weight:500; margin:0;}
+
+
+  /*titre de chaque catégorie*/
+.categorie-label {font-size:1.19rem;color:#2f8052;font-weight:600;padding:20px 0 7px 8px;letter-spacing:.2px;margin-top:22px;}
+
+  /*contenaires de produits de chaque catégorie flexible en row*/
+.produits-cat {display:flex;flex-wrap:wrap;gap:32px;margin-bottom:25px;justify-content:center;}
+
+  /*carte produit flexible en couloms*/
+.carte-produit {width:230px; background:#fff; border-radius:22px; box-shadow:0 6px 32px #44b88d1c; padding:20px 13px 18px 13px; text-align:center;display:flex;flex-direction:column;align-items:center; margin-bottom:6px;position:relative;transition:box-shadow .14s,transform .13s;/*lors du hover*/}
+
+  /*la carte grossit légèrement et l'ombre s'intensifie en survolant*/
+.carte-produit:hover {box-shadow:0 12px 48px #44b88d48; transform:translateY(-2px) scale(1.032);/*monte en haut 2px et s'agrandie de 3,2%*/
     }
-    .header-content h1 {font-size:2.3rem; margin:0 0 13px 0; color:#295b38; font-weight:900; letter-spacing:1.25px;}
-    .header-content p {font-size:1.15rem; color:#32784b; font-weight:500; margin:0;}
-
-
-    /*titre de chaque catégorie*/
-    .categorie-label {font-size:1.19rem;color:#2f8052;font-weight:600;padding:20px 0 7px 8px;letter-spacing:.2px;margin-top:22px;}
-
-    /*contenaires de produits de chaque catégorie flexible en row*/
-    .produits-cat {display:flex;flex-wrap:wrap;gap:32px;margin-bottom:25px;justify-content:center;}
-
-    /*carte produit flexible en couloms*/
-    .carte-produit {width:230px; background:#fff; border-radius:22px; box-shadow:0 6px 32px #44b88d1c; padding:20px 13px 18px 13px; text-align:center;display:flex;flex-direction:column;align-items:center; margin-bottom:6px;position:relative;transition:box-shadow .14s,transform .13s;/*lors du hover*/}
-
-    /*la carte grossit légèrement et l'ombre s'intensifie en survolant*/
-    .carte-produit:hover {box-shadow:0 12px 48px #44b88d48; transform:translateY(-2px) scale(1.032);/*monte en haut 2px et s'agrandie de 3,2%*/
-    }
-    /*image de produit*/
-    .photo-produit {width:135px;height:135px;background:#e6f9f1;border-radius:19px;margin-bottom:13px;box-shadow:0 1.5px 5px #8fd99c23;overflow:hidden;}
-    .photo-produit img {width:100%;height:100%;object-fit:cover;border-radius:18px;}
-    .carte-produit h3 {margin:8px 0 6px 0; color:#41936b; font-weight:700; font-size:1.11rem;}
+  /*image de produit*/
+.photo-produit {width:135px;height:135px;background:#e6f9f1;border-radius:19px;margin-bottom:13px;box-shadow:0 1.5px 5px #8fd99c23;overflow:hidden;}
+.photo-produit img {width:100%;height:100%;object-fit:cover;border-radius:18px;}
+.carte-produit h3 {margin:8px 0 6px 0; color:#41936b; font-weight:700; font-size:1.11rem;}
     /*description de produit*/
-    .desc {color:#349767; font-size:.96rem; margin-bottom:7px; min-height:34px;}
+.desc {color:#349767; font-size:.96rem; margin-bottom:7px; min-height:34px;}
 
-    /*contenaire de bouton pour airer l'espase et la rend plus lisible*/
-    .cta-row {display:flex;justify-content:center;gap:12px;margin-top:9px;}
+  /*contenaire de bouton pour airer l'espase et la rend plus lisible*/
+.cta-row {display:flex;justify-content:center;gap:12px;margin-top:9px;}
 
-    /*Bouton d'achat*/
-    .acheter-btn {background:#43a047;color:#fff;border:none;border-radius:16px;padding:8px 17px;font-size:1.05rem;cursor:pointer;transition:0.14s; font-weight:600;}
-    .acheter-btn:hover {background:#226626;}
+  /*Bouton d'achat*/
+.acheter-btn {background:#43a047;color:#fff;border:none;border-radius:16px;padding:8px 17px;font-size:1.05rem;cursor:pointer;transition:0.14s; font-weight:600;}
+.acheter-btn:hover {background:#226626;}
 
     /*prix qui apparait just en  survolant sur le bouton d'achat*/
-    .tooltip {
-      visibility:hidden;/*tooltip hiden par defaut*/
-      opacity:0;background:#378d54;color:#fff;min-width:74px;text-align:center;border-radius:10px;padding:7px 8px;position:absolute;left:50%;bottom:110%;transform:translateX(-50%);font-size:.98rem;font-weight:500;z-index:40;box-shadow:0 2px 12px #32744b19;transition:opacity .17s;}
-    .acheter-btn:hover .tooltip, .acheter-btn:focus .tooltip {visibility:visible;/*tooltip devient visible en survolant sur son bouton pere*/
-       opacity:1;}
+.tooltip {
+  visibility:hidden;/*tooltip hiden par defaut*/
+  opacity:0;background:#378d54;color:#fff;min-width:74px;text-align:center;border-radius:10px;padding:7px 8px;position:absolute;left:50%;bottom:110%;transform:translateX(-50%);font-size:.98rem;font-weight:500;z-index:40;box-shadow:0 2px 12px #32744b19;transition:opacity .17s;}
+.acheter-btn:hover .tooltip, .acheter-btn:focus .tooltip {visibility:visible;/*tooltip devient visible en survolant sur son bouton pere*/
+ opacity:1;}
 
 
-    /*ajuste la disposition des cartes sur petits écrans (largeur < 950px) : les produits sont en colonne et leur largeur est adaptée.*/
-    @media (max-width:950px) {.header-content{max-width:98vw;}.produits-cat{flex-direction:column;align-items:center;}.carte-produit{width:95vw;max-width:340px;}}
+
+#panier {background:#f8fefe;border-radius:16px;box-shadow:0 2px 8px #43a04714;max-width:400px;padding:1.4rem 1.2rem;margin:36px auto 17px auto;}
+#panier h3 {margin:0 0 18px 0;color:#1b5e20;font-weight:700;} #liste-panier {list-style:none;padding-left:0;margin:0;min-height:18px;font-size:1.09rem;}
+.panier-item-row {display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.remove-btn {background:#fff;color:#d32f2f;border:1px solid #d4d4d4;border-radius:15px;padding:3px 14px;font-size:1.03rem;cursor:pointer;transition:background .14s;}
+.remove-btn:hover {background:#ffebee;color:#b71c1c;}
+#payer {background:#388e3c;color:white;padding:8px 23px;border-radius:17px;border:none;cursor:pointer;font-size:1.08rem;margin-top:15px;transition:background .14s;font-weight:600;}
+#payer:hover {background:#226626;}
+#confirmation {margin-top:1.1rem;color:#43a047;font-weight:520;min-height:18px;font-size:1.07rem;}
+main {max-width:980px;margin:290px auto 0 auto;padding:0 10px;}
+
+/* Style pour le bouton Supprimer du panier */
+#liste-panier li button {
+  background: #ff574f;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  padding: 5px 12px;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: background 0.15s;
+  box-shadow: 0 2px 8px #e67272a3;
+}
+
+#liste-panier li button:hover {
+  background: #d32f2f;
+}
+
+
+
+
+/*ajuste la disposition des cartes sur petits écrans (largeur < 950px) : les produits sont en colonne et leur largeur est adaptée.*/
+@media (max-width:950px) {.header-content{max-width:98vw;}.produits-cat{flex-direction:column;align-items:center;}.carte-produit{width:95vw;max-width:340px;}}
+
+

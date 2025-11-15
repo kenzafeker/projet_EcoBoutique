@@ -28,7 +28,7 @@
       <h3>Gourde inox réutilisable</h3>
       <p class="desc">Alternative zéro déchet, sans BPA, idéale au quotidien.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 14 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Gourde inox réutilisable',14)" >Ajouter au panier <span class="tooltip">Prix : 14 €</span></button>
       </div>
     </div>
     <!--produit 2-->
@@ -37,7 +37,7 @@
       <h3>Brosse vaisselle en bois</h3>
       <p class="desc">Brosse compostable, manche bois issu de forêts gérées durablement.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 5 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Brosse vaisselle en bois',5)">Ajouter au panier <span class="tooltip">Prix : 5 €</span></button>
       </div>
     </div>
     <!--produit 3-->
@@ -46,7 +46,7 @@
       <h3>Essuie-tout lavable</h3>
       <p class="desc">Tissu bio, remplace efficacement l'essuie-tout jetable.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 8 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Essuie-tout lavable',8)" >Ajouter au panier <span class="tooltip">Prix : 8 €</span></button>
       </div>
     </div>
   </div>
@@ -60,7 +60,7 @@
       <h3>Shampoing solide bio</h3>
       <p class="desc">Sans emballage plastique, doux pour cheveux et planète.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 7 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Shampoing solide bio',7)" >Ajouter au panier <span class="tooltip">Prix : 7 €</span></button>
       </div>
     </div>
     <!--produit 2-->
@@ -69,7 +69,7 @@
       <h3>Dentifrice naturel poudre</h3>
       <p class="desc">Formule recyclable, saine et respectueuse de l'environnement.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 6 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Dentifrice naturel poudre',6)" >Ajouter au panier <span class="tooltip">Prix : 6 €</span></button>
       </div>
     </div>
     <!--produit 3-->
@@ -78,7 +78,7 @@
       <h3>Coton démaquillant réutilisable</h3>
       <p class="desc">Lavable en machine, lot de 5, longévité supérieure au jetable.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 4 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Coton démaquillant réutilisable',4)" >Ajouter au panier <span class="tooltip">Prix : 4 €</span></button>
       </div>
     </div>
   </div>
@@ -92,7 +92,7 @@
       <h3>Sac coton bio</h3>
       <p class="desc">Tote bag solide, coton agriculture biologique.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 10 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Sac coton bio',10)" >Ajouter au panier <span class="tooltip">Prix : 10 €</span></button>
       </div>
     </div>
     <!--produit 2-->
@@ -101,7 +101,7 @@
       <h3>Lunettes de soleil bambou</h3>
       <p class="desc">Monture bois naturel, look éco &amp; recyclable.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 18 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Lunettes de soleil bambou',18)" >Ajouter au panier <span class="tooltip">Prix : 18 €</span></button>
       </div>
     </div>
   </div>
@@ -115,7 +115,7 @@
       <h3>Jouet en bois FSC</h3>
       <p class="desc">Sans peinture toxique, bois local, parfait dès 2 ans.</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 12 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Jouet en bois FSC',12)" >Ajouter au panier <span class="tooltip">Prix : 12 €</span></button>
       </div>
     </div>
     <!--produit 2-->
@@ -124,12 +124,68 @@
       <h3>Composteur cuisine</h3>
       <p class="desc">Compact, sans odeur, valorise vos biodéchets !</p>
       <div class="cta-row">
-        <button class="acheter-btn" >Ajouter au panier <span class="tooltip">Prix : 24 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Composteur cuisine',24)" >Ajouter au panier <span class="tooltip">Prix : 24 €</span></button>
       </div>
     </div>
   </div>
 </section>
+
+
 <!-- +div panier -->
+ <section id="panier">
+  <h3>Votre panier</h3>
+  <ul id="liste-panier"></ul>
+  <p>Total : <span id="total">0</span> €</p>
+  <button id="payer" style="display:none;">Procéder au paiement</button>
+  <div id="confirmation"></div>
+</section>
 </main>
+
+<script >
+let panier = JSON.parse(localStorage.getItem('panier')) || [];
+
+function ajouterAuPanier(nom, prix) {
+  panier.push({nom, prix});
+  localStorage.setItem('panier', JSON.stringify(panier));
+  actualiserPanier();
+}
+
+function supprimerDuPanier(index) {
+  panier.splice(index, 1);
+  localStorage.setItem('panier', JSON.stringify(panier));
+  actualiserPanier();
+}
+
+function actualiserPanier() {
+  let liste = document.getElementById('liste-panier');
+  liste.innerHTML = '';
+  panier.forEach((item, index) => {
+    let li = document.createElement('li');
+    li.textContent = item.nom + " - " + item.prix + "€ ";
+    let btnSuppr = document.createElement('button');
+    btnSuppr.textContent = "Supprimer";
+    btnSuppr.onclick = function() { supprimerDuPanier(index); };
+    li.appendChild(btnSuppr);
+    liste.appendChild(li);
+  });
+  let total = panier.reduce((s, i) => s + i.prix, 0);
+  document.getElementById('total').textContent = total;
+  document.getElementById('payer').style.display = total > 0 ? "inline-block" : "none";
+}
+
+document.getElementById('payer').onclick = function() {
+  document.getElementById('confirmation').textContent = "Merci pour votre achat écologique !";
+  panier = [];
+  localStorage.setItem('panier', JSON.stringify(panier));
+  actualiserPanier();
+  setTimeout(function() {
+    document.getElementById('confirmation').textContent = "";
+  }, 3000);
+};
+
+actualiserPanier();
+
+</script>
+
 </body>
 </html>
