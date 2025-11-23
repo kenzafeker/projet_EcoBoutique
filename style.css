@@ -69,7 +69,7 @@ body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#eafdec;
 #payer {background:#388e3c;color:white;padding:8px 23px;border-radius:17px;border:none;cursor:pointer;font-size:1.08rem;margin-top:15px;transition:background .14s;font-weight:600;}
 #payer:hover {background:#226626;}
 #confirmation {margin-top:1.1rem;color:#43a047;font-weight:520;min-height:18px;font-size:1.07rem;}
-main {max-width:980px;margin:290px auto 0 auto;padding:0 10px;}
+main {max-width:980px;margin:50px auto 0 auto;padding:0 10px;}
 
 /* Style pour le bouton Supprimer du panier */
 #liste-panier li button {
@@ -96,3 +96,39 @@ main {max-width:980px;margin:290px auto 0 auto;padding:0 10px;}
 @media (max-width:950px) {.header-content{max-width:98vw;}.produits-cat{flex-direction:column;align-items:center;}.carte-produit{width:95vw;max-width:340px;}}
 
 
+
+
+/* === BARRE DE RECHERCHE STICKY À DROITE === */
+
+.search-container {
+    position: fixed;
+    top: 300px;
+    right: 20px;
+    z-index: 9999;
+}
+
+/* Style moderne + dégradé vert + ombre */
+.search-container input {
+    padding: 12px 18px;
+    width: 260px;
+    font-size: 1.05rem;
+    border-radius: 30px;
+    border: 3px solid transparent;
+    background: white;
+
+    /* Bordure dégradée */
+    background-image: linear-gradient(white, white),
+                      linear-gradient(90deg, #0ce84b, #0abf66);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Zoom + ombre au focus */
+.search-container input:focus {
+    transform: scale(1.05);
+    outline: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
