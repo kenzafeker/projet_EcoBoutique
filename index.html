@@ -148,10 +148,32 @@
 </section>
 </main>
 
+<!-- song de boutons -->
+<audio id="clickSound" src="song/click.mp3"></audio>
+<audio id="paySound" src="song/pay.mp3"></audio>
+
+
 <script >
+
+const clickSound = document.getElementById('clickSound');
+const paySound   = document.getElementById('paySound');
+
+function playClick() {
+  clickSound.currentTime = 0;
+  clickSound.play();
+};
+
+function playPay() {
+  paySound.currentTime = 0;
+  paySound.play();
+};
+
+
+
 let panier = JSON.parse(localStorage.getItem('panier')) || [];
 
 function ajouterAuPanier(nom, prix) {
+  playClick();
   panier.push({nom, prix});
   localStorage.setItem('panier', JSON.stringify(panier));
   actualiserPanier();
@@ -181,6 +203,7 @@ function actualiserPanier() {
 }
 
 document.getElementById('payer').onclick = function() {
+  playPay();
   document.getElementById('confirmation').textContent = "Merci pour votre achat écologique !";
   panier = [];
   localStorage.setItem('panier', JSON.stringify(panier));
