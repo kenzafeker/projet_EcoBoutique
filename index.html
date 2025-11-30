@@ -19,7 +19,7 @@
 
 <!-- Barre de recherche sticky -->
 <div class="search-container">
-    <input type="text" id="searchBar" placeholder="Rechercher un produit..." onkeyup="filtrerProduits()">
+    <input type="text" id="searchBar" placeholder="Rechercher un produit..." onkeyup="filtrerProduits()"> <!-- onkeyup permet le filtrage avec chaque caractere ajouté-->
 </div>
 
 
@@ -111,6 +111,15 @@
         <button class="acheter-btn" onclick="ajouterAuPanier('Lunettes de soleil bambou',18)" >Ajouter au panier <span class="tooltip">Prix : 18 €</span></button>
       </div>
     </div>
+    <!--produit 3-->
+    <div class="carte-produit" data-categorie="Mode">
+      <div class="photo-produit"><img src="img/makeup naturel.jpeg" alt="makeup naturel"></div>
+      <h3>makeup naturel</h3>
+      <p class="desc">Benifique pour la peau ,ne cause pas d'alergie ,a base de nature ,embalage durable ,élegant &amp; recyclable.</p>
+      <div class="cta-row">
+        <button class="acheter-btn" onclick="ajouterAuPanier('makeup naturel',50)" >Ajouter au panier <span class="tooltip">Prix : 50 €</span></button>
+      </div>
+    </div>
   </div>
 
   <!--Catégorie 4-->
@@ -122,7 +131,7 @@
       <h3>Jouet en bois FSC</h3>
       <p class="desc">Sans peinture toxique, bois local, parfait dès 2 ans.</p>
       <div class="cta-row">
-        <button class="acheter-btn" onclick="ajouterAuPanier('Jouet en bois FSC',12)" >Ajouter au panier <span class="tooltip">Prix : 12 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Jouet en bois FSC',12)" >Ajouter au panier <span class="tooltip">Prix : 12 €</span></button>
       </div>
     </div>
     <!--produit 2-->
@@ -131,18 +140,27 @@
       <h3>Composteur cuisine</h3>
       <p class="desc">Compact, sans odeur, valorise vos biodéchets !</p>
       <div class="cta-row">
-        <button class="acheter-btn" onclick="ajouterAuPanier('Composteur cuisine',24)" >Ajouter au panier <span class="tooltip">Prix : 24 €</span></button>
+        <button class="acheter-btn" onclick="ajouterAuPanier('Composteur cuisine',24)" >Ajouter au panier <span class="tooltip">Prix : 24 €</span></button>
+      </div>
+    </div>
+    <!--produit 3-->
+    <div class="carte-produit" >
+      <div class="photo-produit"><img src="img/Lunch Box.jpeg" alt="Lunch Box"></div>
+      <h3>Lunch Box</h3>
+      <p class="desc">Sans peinture toxique, bois local, bonne fermiture, legere lors de transport .</p>
+      <div class="cta-row">
+        <button class="acheter-btn" onclick="ajouterAuPanier('Lunch Box',25)" >Ajouter au panier <span class="tooltip">Prix : 25 €</span></button>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- +div panier -->
+<!-- div panier -->
  <section id="panier">
   <h3>Votre panier</h3>
-  <ul id="liste-panier"></ul>
-  <p>Total : <span id="total">0</span> €</p>
+  <ul id="liste-panier"></ul>  <!-- liste pour les articles selectiionnées -->
+  <p>Total : <span id="total">0</span> €</p> <!--  pour le prix totale-->
   <button id="payer" style="display:none;">Procéder au paiement</button>
   <div id="confirmation"></div>
 </section>
@@ -152,15 +170,14 @@
 <audio id="clickSound" src="song/click.mp3"></audio>
 <audio id="paySound" src="song/pay.mp3"></audio>
 
-
 <script >
 
 const clickSound = document.getElementById('clickSound');
 const paySound   = document.getElementById('paySound');
 
 function playClick() {
-  clickSound.currentTime = 0;
-  clickSound.play();
+  clickSound.currentTime = 0; // garantit que, même si l'utilisateur clique plusieurs fois d'affilée, le son repart toujours du début
+  clickSound.play(); //Activatiion du song
 };
 
 function playPay() {
@@ -168,73 +185,88 @@ function playPay() {
   paySound.play();
 };
 
+/////////////////////////////////////////////////
+
+// panier 
+// utilisation de local storage pour conserver les achats meme en rafraichant la page
+let panier = JSON.parse(localStorage.getItem('panier')) || []; // tableau des articles a acheter initialiser d'aprés localStorage s'il existe sinon vide
 
 
-let panier = JSON.parse(localStorage.getItem('panier')) || [];
-
-function ajouterAuPanier(nom, prix) {
-  playClick();
-  panier.push({nom, prix});
-  localStorage.setItem('panier', JSON.stringify(panier));
-  actualiserPanier();
+function ajouterAuPanier(nom, prix) {  // fontion appeler lors de clic sur le bouton d'achat dans chaque article ,                      
+  playClick(); // appel de fontion playClick pour activer le son
+  panier.push({nom, prix}); // ajout de l'article (objet contenant le nom et le prix) clické dans le tableau panier
+  localStorage.setItem('panier', JSON.stringify(panier)); // ajouter l'article dans le stokage locale
+  actualiserPanier(); // ajouter le nouvelle article avec son bouton de supression dans la liste de panier en appelant la fonction actualiserPanier
 }
 
-function supprimerDuPanier(index) {
-  panier.splice(index, 1);
-  localStorage.setItem('panier', JSON.stringify(panier));
-  actualiserPanier();
+
+function supprimerDuPanier(index) {  // supprimer un article deja ajouté
+  panier.splice(index, 1); // effacer l'article du tableau panier
+  localStorage.setItem('panier', JSON.stringify(panier)); // actualiser le panier dans localstorage
+  actualiserPanier(); // actualiser la liste des articles
 }
 
-function actualiserPanier() {
-  let liste = document.getElementById('liste-panier');
-  liste.innerHTML = '';
-  panier.forEach((item, index) => {
-    let li = document.createElement('li');
-    li.textContent = item.nom + " - " + item.prix + "€ ";
-    let btnSuppr = document.createElement('button');
-    btnSuppr.textContent = "Supprimer";
-    btnSuppr.onclick = function() { supprimerDuPanier(index); };
-    li.appendChild(btnSuppr);
-    liste.appendChild(li);
+
+//met à jour l’affichage du panier dans la page et recalcule le total à chaque changement
+function actualiserPanier() { 
+  // Mise à jour de la liste des produits
+  let liste = document.getElementById('liste-panier'); //Récupérer l'element ul de div Panier que va contenir les lignes de produits
+  liste.innerHTML = '';  //vider complètement la liste pour la reconstruire depuis le tableau liste
+
+  panier.forEach((item, index) => { // a chaque article figurant dans le tableau panier :
+    let li = document.createElement('li');  // on crée une balise li ( ligne )
+    li.textContent = item.nom + " - " + item.prix + "€ ";  // remplir la ligne avec le contenue de cette case de tableau
+    let btnSuppr = document.createElement('button');  // crer un bouton suprimer 
+    btnSuppr.textContent = "Supprimer"; 
+    btnSuppr.onclick = function() { supprimerDuPanier(index); }; // permettre ka suppression de la ligne lors de la click sur lr bouton
+    li.appendChild(btnSuppr);  // placer le bouton supprimer dans la ligne li
+    liste.appendChild(li); // placer la ligne li dans la liste ul dans div Panier
   });
-  let total = panier.reduce((s, i) => s + i.prix, 0);
-  document.getElementById('total').textContent = total;
-  document.getElementById('payer').style.display = total > 0 ? "inline-block" : "none";
+  // Calcul et affichage du total
+  let total = panier.reduce((s, i) => s + i.prix, 0);     // la méthod réduce :synthaxe ::array.reduce(callback, initialValue)​ elle applique un calback qui est un 
+                                                          // accumulateur qui traite chaque valeur de tableau afin de les réduires en une seule + s initialiser à 0
+  document.getElementById('total').textContent = total; // afficher le totale 
+  document.getElementById('payer').style.display = total > 0 ? "inline-block" : "none"; // changer la visibilité du bouton : visible si totale >0 et caché sinon
 }
 
-document.getElementById('payer').onclick = function() {
-  playPay();
-  document.getElementById('confirmation').textContent = "Merci pour votre achat écologique !";
-  panier = [];
-  localStorage.setItem('panier', JSON.stringify(panier));
-  actualiserPanier();
-  setTimeout(function() {
+
+// payer et viser la liste des articles achetés los du click sur le bouton payer
+document.getElementById('payer').onclick = function() { // fonction qui tourne en appuyant sur le bouton payer
+  playPay(); // Activer le son 
+  document.getElementById('confirmation').textContent = "Un petit geste pour vous, mais un grand pas pour l’environnement, merci!"; // afficher le message de confirmatoion
+  panier = [];  // vider le panier
+  localStorage.setItem('panier', JSON.stringify(panier)); // vider le panier dans localStorage
+  actualiserPanier(); // vider la liste dans div Panier
+  setTimeout(function() {  //effacer le message de confirmation apres 3s
     document.getElementById('confirmation').textContent = "";
   }, 3000);
 };
 
-actualiserPanier();
+actualiserPanier(); // appel de la fonction actualiser panier
+                   // permet de lire le contenue existant de panier dans localStorage et l'afficher lors de chargement de la page 
 
-// filtreage des produits
-function filtrerProduits() {
-    let query = document.getElementById("searchBar").value.toLowerCase();
-    let produits = document.querySelectorAll(".carte-produit");
+// filtreage des produits - Bare de recherche selon le nom et la description
+function filtrerProduits() { 
+    let query = document.getElementById("searchBar").value.toLowerCase(); // extraire le text ecrit dans la bare en miniscule 
+    let produits = document.querySelectorAll(".carte-produit"); // liste des produits avec leurs noms et descriptions
 
     produits.forEach(produit => {
-        let nom = produit.querySelector("h3").textContent.toLowerCase();
-        let desc = produit.querySelector(".desc").textContent.toLowerCase();
+        let nom = produit.querySelector("h3").textContent.toLowerCase(); // variable contenant le nom de produit en miniscule
+        let desc = produit.querySelector(".desc").textContent.toLowerCase(); // variable contenant la description de produit en miniscule
 
-        if (nom.includes(query) || desc.includes(query)) {
-            produit.style.display = "flex";
+        if (nom.includes(query) || desc.includes(query)) { // Tester si la chaine écrite dans la bare de recherche figure dans le nom ou la description
+            produit.style.display = "flex";  // si oui on laise la carte de produit visible
         } else {
-            produit.style.display = "none";
+            produit.style.display = "none";  // si non on la rend invisible
         }
     });
-}
+} // remarque: le fitrage est actualiser avec chaque keydown sur la barre de recherche d'ou en effacant son contenue tout les carte revient visibles automatiquement
 
 
 
+      // Merci pour votre attention! tous 💗
 </script>
-
 </body>
 </html>
+
+

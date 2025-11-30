@@ -90,12 +90,8 @@ main {max-width:980px;margin:50px auto 0 auto;padding:0 10px;}
 }
 
 
-
-
 /*ajuste la disposition des cartes sur petits écrans (largeur < 950px) : les produits sont en colonne et leur largeur est adaptée.*/
 @media (max-width:950px) {.header-content{max-width:98vw;}.produits-cat{flex-direction:column;align-items:center;}.carte-produit{width:95vw;max-width:340px;}}
-
-
 
 
 /* === BARRE DE RECHERCHE STICKY À DROITE === */
